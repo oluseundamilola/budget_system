@@ -6,37 +6,34 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import RequestService from "../../services/RequestService";
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
-import ApproverService from "../../services/ApproverService";
+// import RequestService from "../../services/RequestService";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
+// import ApproverService from "../../services/ApproverService";
 
-const List = ({ type, data }) => {
-  const [buttonInfo, setButtonInfo] = useState("Send to Approver")
-  const navigate = useNavigate()
+const List = ({ type, data, handleClick, approveRequest, rejectRequest }) => {
+  // const handleClick = (request_id) => {
+  //   RequestService.sendRequest(request_id)
+  //   .then((response) => {
+  //     console.log(response.data)
+  //     navigate("/requests")
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
+  // }
 
-  const handleClick = (request_id) => {
-    RequestService.sendRequest(request_id)
-    .then((response) => {
-      console.log(response.data)
-      navigate("/requests")
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
-
-  const approveRequest = (request_id) => {
-    ApproverService.approveRequest(request_id)
-    .then((response) => {
-      console.log(response.data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+  // const approveRequest = (request_id) => {
+  //   ApproverService.approveRequest(request_id)
+  //   .then((response) => {
+  //     console.log(response.data)
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
+  // }
 
   let columns;
   switch (type) {
@@ -64,10 +61,9 @@ const List = ({ type, data }) => {
         { name: "Division ID" },
         { name: "Division Name" },
         { name: "Division Code" },
-        { name: "Sent Requests" },
       ];
       break;
-      case "division_request":
+    case "division_request":
       columns = [
         { name: "Request" },
         { name: "Description" },
@@ -75,7 +71,7 @@ const List = ({ type, data }) => {
         { name: "Status" },
       ];
       break;
-      case "send_requests":
+    case "send_requests":
       columns = [
         { name: "Request" },
         { name: "Description" },
@@ -83,7 +79,7 @@ const List = ({ type, data }) => {
         { name: "Status" },
       ];
       break;
-      case "ministry_request":
+    case "ministry_request":
       columns = [
         { name: "Request" },
         { name: "Description" },
@@ -93,10 +89,18 @@ const List = ({ type, data }) => {
         { name: "Department" },
       ];
       break;
+    case "request_by_status":
+      columns = [
+        { name: "Request" },
+        { name: "Description" },
+        { name: "Amount" },
+        { name: "Ministry" },
+        { name: "Status" },
+      ];
+      break;
     default:
       break;
   }
-
 
   return (
     <TableContainer component={Paper} className="table">
@@ -119,19 +123,29 @@ const List = ({ type, data }) => {
                   {request.budget_description}
                 </TableCell>
                 <TableCell className="tableCell">{request.amount}</TableCell>
-                <TableCell className="tableCell">{request.division_name}</TableCell>
+                <TableCell className="tableCell">
+                  {request.division_name}
+                </TableCell>
                 <TableCell className="tableCell">
                   {request.departmet_name}
                 </TableCell>
-                <TableCell className="tableCell">{request.ministry_name}</TableCell>
+                <TableCell className="tableCell">
+                  {request.ministry_name}
+                </TableCell>
                 <TableCell className="tableCell">
                   <span className={`status ${request.status}`}>
-                    <CheckIcon style={{color: "green"}} onClick={() => approveRequest(request.id)}/>
+                    <CheckIcon
+                      className="checkIcon"
+                      onClick={() => approveRequest(request.id)}
+                    />
                   </span>
                 </TableCell>
                 <TableCell className="tableCell">
                   <span className={`status ${request.status}`}>
-                    <ClearIcon style={{color: "red"}} />
+                    <ClearIcon
+                      className="clearIcon"
+                      onClick={() => rejectRequest(request.id)}
+                    />
                   </span>
                 </TableCell>
               </TableRow>
@@ -171,9 +185,6 @@ const List = ({ type, data }) => {
                   {division.divisionCode}
                 </TableCell>
                 <TableCell className="tableCell">
-                  ?Number of sent request?
-                </TableCell>
-                <TableCell className="tableCell">
                   <div className="cellAction">
                     <Link
                       to={`/division/${division.id}`}
@@ -195,9 +206,7 @@ const List = ({ type, data }) => {
                 <TableCell className="tableCell">
                   {request.budget_description}
                 </TableCell>
-                <TableCell className="tableCell">
-                  {request.amount}
-                </TableCell>
+                <TableCell className="tableCell">{request.amount}</TableCell>
                 <TableCell className="tableCell">
                   <span className={`status ${request.status}`}>
                     {request.status}
@@ -205,16 +214,20 @@ const List = ({ type, data }) => {
                 </TableCell>
               </TableRow>
             ))}
-            {type === "ministry_request" &&
+          {type === "ministry_request" &&
             data.map((ministry_request) => (
               <TableRow key={ministry_request.name}>
                 <TableCell>{ministry_request.id}</TableCell>
-                <TableCell className="tableCell">{ministry_request.budget_description}</TableCell>
+                <TableCell className="tableCell">
+                  {ministry_request.budget_description}
+                </TableCell>
                 <TableCell className="tableCell">
                   {ministry_request.amount}
                 </TableCell>
-                <TableCell className="tableCell">
-                  {ministry_request.status}
+                <TableCell>
+                  <span className={`status ${ministry_request.status}`}>
+                    {ministry_request.status}
+                  </span>
                 </TableCell>
                 <TableCell className="tableCell">
                   {ministry_request.division_name}
@@ -234,7 +247,7 @@ const List = ({ type, data }) => {
                 </TableCell>
               </TableRow>
             ))}
-            {type === "send_requests" &&
+          {type === "request_by_status" &&
             data.map((request) => (
               <TableRow>
                 <TableCell className="tableCell">
@@ -243,17 +256,40 @@ const List = ({ type, data }) => {
                 <TableCell className="tableCell">
                   {request.budget_description}
                 </TableCell>
+                <TableCell className="tableCell">{request.amount}</TableCell>
                 <TableCell className="tableCell">
-                  {request.amount}
+                  {request.ministry_name}
                 </TableCell>
                 <TableCell className="tableCell">
-                <button className="sendButton" onClick={() => handleClick(request.id)}>{buttonInfo}</button>
+                  <span className={`status ${request.status}`}>
+                    {request.status}
+                  </span>
                 </TableCell>
               </TableRow>
             ))}
-             {type === "anotherUserSaw" &&
-             <h1>You do not have the permission to view table</h1>
-           }
+          {type === "send_requests" &&
+            data.map((request) => (
+              <TableRow>
+                <TableCell className="tableCell">
+                  {request.budget_name}
+                </TableCell>
+                <TableCell className="tableCell">
+                  {request.budget_description}
+                </TableCell>
+                <TableCell className="tableCell">{request.amount}</TableCell>
+                <TableCell className="tableCell">
+                  <button
+                    className="sendButton"
+                    onClick={() => handleClick(request.id)}
+                  >
+                    Send for Approval
+                  </button>
+                </TableCell>
+              </TableRow>
+            ))}
+          {type === "anotherUserSaw" && (
+            <h1>You do not have the permission to view table</h1>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

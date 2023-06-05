@@ -19,6 +19,24 @@
             color: blue;
             background-color: rgba(0, 0, 255, 0.11);
         }
+        &.Rejected{
+            color: red;
+            background-color: rgba(255, 0, 0, 0.219);
+        }
+        .checkIcon{
+            color: green;
+            cursor: pointer;
+            background-color: rgba(0, 128, 0, 0.199);
+            border-radius: 50%;
+            padding: 10px;
+        }
+        .clearIcon{
+            color: red;
+            cursor: pointer;
+            background-color: rgba(255, 0, 0, 0.158);
+            border-radius: 50%;
+            padding: 10px;
+        }
     }
     .cellAction{
         display: flex;

@@ -26,6 +26,20 @@ class ApproverService {
         );
     
       }
+
+    rejectRequest(request_id){
+      const tokenString = Cookies.get("_auth")
+      return axios.put(
+        APPROVER_BASE_URL + "reject_request/" + request_id,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${tokenString}`,
+            "Content-Type": "application/json",
+          }
+        }
+      )
+    }
 }
 
 export default new ApproverService();

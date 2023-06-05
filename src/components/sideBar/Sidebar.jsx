@@ -10,6 +10,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 // import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ type }) => {
@@ -26,10 +28,10 @@ const Sidebar = ({ type }) => {
           <div className="center">
             <ul>
               <p className="title">MAIN</p>
-                <li style={{cursor: "not-allowed"}}>
-                  <DashboardIcon className="icon" />
-                  <span>Dashboard</span>
-                </li>
+              <li style={{ cursor: "not-allowed" }}>
+                <DashboardIcon className="icon" />
+                <span>Dashboard</span>
+              </li>
               <p className="title">LIST</p>
               <Link to="/ministry/info" style={{ textDecoration: "none" }}>
                 <li>
@@ -38,10 +40,10 @@ const Sidebar = ({ type }) => {
                 </li>
               </Link>
               <Link to="/requests" style={{ textDecoration: "none" }}>
-              <li>
-                <LocalShippingIcon className="icon" />
-                <span>View Requests</span>
-              </li>
+                <li>
+                  <LocalShippingIcon className="icon" />
+                  <span>View Requests</span>
+                </li>
               </Link>
               <li>
                 <NotificationsIcon className="icon" />
@@ -74,8 +76,7 @@ const Sidebar = ({ type }) => {
         </div>
       )}
 
-
-{type === "admin" && (
+      {type === "admin" && (
         <div className="sidebar">
           <div className="top">
             <Link to="/" style={{ textDecoration: "none" }}>
@@ -100,23 +101,23 @@ const Sidebar = ({ type }) => {
                 </li>
               </Link>
               <Link to="/requests" style={{ textDecoration: "none" }}>
-              <li>
-                <NotificationsIcon className="icon" />
-                <span>Requests</span>
-              </li>
+                <li>
+                  <NotificationsIcon className="icon" />
+                  <span>Requests</span>
+                </li>
               </Link>
-              <li>
-                <PointOfSaleIcon className="icon" />
-                <span>Approved Requests</span>
-              </li>
-              <li>
-                <LocalShippingIcon className="icon" />
-                <span>Pending Requests</span>
-              </li>
-              <li>
-                <NotificationsIcon className="icon" />
-                <span>Declined Requests</span>
-              </li>
+              <Link to="/requests/approved" style={{ textDecoration: "none" }}>
+                <li>
+                  <CheckIcon className="icon" />
+                  <span>Approved Requests</span>
+                </li>
+              </Link>
+              <Link to="/requests/rejected" style={{ textDecoration: "none" }}>
+                <li>
+                  <ClearIcon className="icon" />
+                  <span>Rejected Requests</span>
+                </li>
+              </Link>
               <p className="title">USEFUL</p>
               <li>
                 <EqualizerIcon className="icon" />

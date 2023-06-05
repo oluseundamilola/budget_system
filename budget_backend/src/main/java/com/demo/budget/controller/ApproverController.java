@@ -37,6 +37,12 @@ public class ApproverController {
         return ResponseEntity.ok(approverService.approveRequest(request_id,finance_id));
     }
 
+    @PutMapping("reject_request/{request_id}")
+    @PreAuthorize("hasAuthority('ROLE_APPROVER')")
+    public ResponseEntity<?> rejectRequest(@PathVariable long request_id){
+        return ResponseEntity.ok(approverService.rejectRequest(request_id));
+    }
+
     @GetMapping("/get_approver")
     public ResponseEntity<?> getApproverById(){
         return ResponseEntity.ok(approverService.getApprover());

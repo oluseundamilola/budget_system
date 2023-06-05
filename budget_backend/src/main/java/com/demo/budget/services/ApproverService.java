@@ -76,7 +76,9 @@ public class ApproverService {
             total_amount = finance.getTotal_budget();
             amount_spent = budgetRequest.getAmount();
             percent = calculate_percentage(amount_spent, total_amount);
-            finance.setPercent(percent);
+            long percentInDB = finance.getPercent();
+            long newPercent = percentInDB + percent;
+            finance.setPercent(newPercent);
             budgetRepo.save(budgetRequest);
             financeRepo.save(finance);
         }
@@ -87,10 +89,19 @@ public class ApproverService {
 
     }
 
+    public Object rejectRequest(long requestId) {
+        //get Request to update
+        BudgetRequest request = budgetRepo.findById(requestId).get();
+        request.setStatus("Rejected");
+        budgetRepo.save(request);
+        return ("Request Reject!");
+    }
+
     private long calculate_percentage(long amount_spent, long total_amount) {
         double percentage = ((double) amount_spent / total_amount) * 100;
         return (long) percentage;
     }
+
 
 
 }

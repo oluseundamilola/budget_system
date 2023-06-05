@@ -23,9 +23,9 @@ const Datatable = ({ type, data }) => {
           type: "number",
           width: 100,
         },
-        { field: "location", headerName: "Location", width: 70 },
+        { field: "location", headerName: "Location", width: 200 },
         { field: "sector", headerName: "Sectors", type: "number", width: 70 },
-        { field: "email", headerName: "User", width: 130 },
+        { field: "email", headerName: "User", width: 200 },
       ];
       addType = "Ministry"
       break;
@@ -33,7 +33,7 @@ const Datatable = ({ type, data }) => {
       case "department":
       columns = [
         { field: "department_id", headerName: "ID", width: 70 },
-        { field: "name", headerName: "Name", width: 170 },
+        { field: "name", headerName: "Name", width: 200 },
         { field: "description", headerName: "Description", width: 300 },
         {
           field: "amount",
@@ -92,7 +92,7 @@ const Datatable = ({ type, data }) => {
       </div>
       <DataGrid
         rows={data}
-        columns={columns.concat(actionColum)}
+        columns={columns}
         initialState={{
           pagination: {
             paginationModel: { page: 2, pageSize: 10 },

@@ -14,6 +14,7 @@ const DivisionSingle = () => {
     const [divisionInfo, setDivisionInfo] = useState({})
     const [requestData, setRequestData] = useState([])
     
+    
     useEffect( () => {
         const loadDivisionInfo = (division_id) => {
             DivisionService.getDivisionInfo(division_id)
@@ -34,6 +35,8 @@ const DivisionSingle = () => {
                 console.log(error)
             })
         }
+       
+
         loadDivisionInfo(division_id)
         loadRequestData(division_id)
     }, [division_id])
@@ -50,11 +53,9 @@ const DivisionSingle = () => {
             </Link>
             <h1 className="title">Information</h1>
             <div className="item">
-              <img 
-              src=""
-              alt=""
-              className="itemImg"
-              />
+            <div className="itemImg">
+                Division
+              </div>
               <div className="details">
                 <h1 className="itemTitle">{divisionInfo.divisionName}</h1>
                 <div className="detailItem">

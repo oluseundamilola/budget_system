@@ -78,6 +78,33 @@ const Home = () => {
     loadUserData()
   }, [])
 
+  const approveRequest = (request_id) => {
+    ApproverService.approveRequest(request_id)
+    .then((response) => {
+      console.log(response.data)
+      if(sentRequest){
+        setSentRequest((prevRequest) => {
+          return prevRequest.filter((requests) => requests.id !== request_id)
+        })
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const rejectRequest = (request_id) => {
+    ApproverService.rejectRequest(request_id)
+    .then((response) => {
+      console.log(response.data)
+      if(sentRequest){
+        setSentRequest((prevRequests) => {
+          return prevRequests.filter((requests) => requests.id !== request_id)
+        })
+      }
+    })
+  }
+
   return (
     <div className="home">
       <Sidebar type="admin" />
@@ -98,7 +125,7 @@ const Home = () => {
 
           {
             userData.role === "ROLE_APPROVER" && sentRequest.length !== 0 ? (
-            <List type="requests" data = {sentRequest} />
+            <List type="requests" data = {sentRequest} approveRequest={approveRequest} rejectRequest={rejectRequest} />
             ): (
             <h2 className="listTitle">Request List is empty</h2>
           )}

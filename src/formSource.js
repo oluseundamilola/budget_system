@@ -31,12 +31,32 @@ export const DepartmentInput = [
         label: "Name",
         type: "text",
         placeholder: "Ministry Name",
+        name: "name"
     },
     {
         id: 2,
-        label: "Desc",
+        label: "Description",
         type: "text",
-        placeholder: "Department Desc",
+        placeholder: "Department description",
+        name: "description"
+    },
+
+]
+
+export const DivisionInput = [
+    {
+        id: 1,
+        label: "Name",
+        type: "text",
+        placeholder: "Division Name",
+        name: "divisionName"
+    },
+    {
+        id: 2,
+        label: "Division Code",
+        type: "text",
+        placeholder: "Division Code",
+        name: "divisionCode"
     },
 
 ]
@@ -57,7 +77,7 @@ export const RequestInput = [
         name: "budget_description"
     },
     {
-        id: 2,
+        id: 3,
         label: "Enter Amount",
         type: "text",
         placeholder: "Amount of money needed",

@@ -26,12 +26,17 @@
                 }
                 .item{
                     display: flex;
-                    gap: 20px;
+                    gap: 30px;
                     .itemImg{
-                        width: 100px;
+                        width: 150px;
                         height: 100px;
                         border-radius: 50%;
-                        object-fit: cover;
+                        background-color: #555;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-weight: 500;
                     }
                     .details{
                         .itemTitle{
@@ -54,7 +59,7 @@
                 }
             }
             .right{
-                flex: 2;
+                flex: 0;
             }
         }
         .buttom{

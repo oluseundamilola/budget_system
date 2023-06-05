@@ -67,7 +67,7 @@ public class BudgetService {
                 ).collect(Collectors.toList());
     }
 
-    public Object getRequestByStatus(String status) {
+    public Object  getRequestByStatus(String status) {
         List<BudgetRequest> requests = budgetRepo.getRequestByStatus(status);
         return requests.stream()
                 .map(request -> BudgetRequestDTO.builder()

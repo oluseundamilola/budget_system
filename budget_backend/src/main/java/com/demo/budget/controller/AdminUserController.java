@@ -21,25 +21,25 @@ public class AdminUserController {
 
     @PostMapping(path = "add_user")
     public ResponseEntity<?> addUser(Users user) {
-        user.setLastname("approver");
-        user.setLastname("approver");
-        user.setEmail("approver@gmail.com");
-        user.setPassword(encoder.encode("1234"));
-        user.setRole("ROLE_APPROVER");
-        user.setStatus("active");
-        userRepo.save(user);
-        return ResponseEntity.ok(user);
-
-        //Add new admin
-
-//        user.setLastname("admin");
-//        user.setLastname("admin");
-//        user.setEmail("admin@admin.com");
+//        user.setLastname("approver");
+//        user.setLastname("approver");
+//        user.setEmail("approver@gmail.com");
 //        user.setPassword(encoder.encode("1234"));
-//        user.setRole("ROLE_ADMIN");
+//        user.setRole("ROLE_APPROVER");
 //        user.setStatus("active");
 //        userRepo.save(user);
 //        return ResponseEntity.ok(user);
+
+        //Add new admin
+
+        user.setLastname("admin");
+        user.setLastname("admin");
+        user.setEmail("admin@admin.com");
+        user.setPassword(encoder.encode("1234"));
+        user.setRole("ROLE_ADMIN");
+        user.setStatus("active");
+        userRepo.save(user);
+        return ResponseEntity.ok(user);
 
     }
 }

@@ -46,6 +46,21 @@ const RequestList = () => {
     loadMinistryRequestData();
   }, []);
 
+  const handleClick = (request_id) => {
+    RequestService.sendRequest(request_id)
+    .then((response) => {
+      console.log(response.data)
+      if(requestData){
+        setRequestData((prevData) => {
+          return prevData.filter( (request) => request.id !== request_id )
+        })
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   return (
     <div className="list">
       {userData.role === "ROLE_ADMIN" && <SideBar type="admin" />}
@@ -53,7 +68,7 @@ const RequestList = () => {
       <div className="listContainer">
         <NavBar />
         {userData.role === "ROLE_ADMIN" && (
-          <List type="send_requests" data={requestData} />
+          <List type="send_requests" data={requestData} handleClick={handleClick} />
         )}
         {userData.role === "ROLE_USER" && (
           <List type="ministry_request" data={ministryRequestData} />
